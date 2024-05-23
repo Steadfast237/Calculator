@@ -1,6 +1,6 @@
-let operator;
-let firstNumber;
-let secondNumber;
+let operator = '';
+let firstNumber = 0;
+let secondNumber = 0;
 
 const add = (a, b) => a + b;
 
@@ -29,3 +29,19 @@ const operate = (operator, firstNumber, secondNumber) => {
       break;
   }
 };
+
+// DOM
+const container = document.querySelector('.container');
+const display = document.querySelector('.display');
+
+let displayValue = '';
+
+container.addEventListener('click', function (e) {
+  const target = e.target;
+  const type = target.dataset.type;
+
+  if (type === 'number') {
+    displayValue += target.textContent;
+    display.textContent = displayValue;
+  }
+});
