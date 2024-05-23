@@ -1,3 +1,7 @@
+let operator;
+let firstNumber;
+let secondNumber;
+
 const add = (a, b) => a + b;
 
 const divide = (a, b) => a / b;
