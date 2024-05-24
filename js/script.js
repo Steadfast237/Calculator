@@ -1,10 +1,15 @@
 let operator = '';
 let firstNumber = 0;
 let secondNumber = 0;
+let displayValue = '';
 
 const add = (a, b) => a + b;
 
-const divide = (a, b) => a / b;
+const divide = (a, b) => {
+  if (b === 0) return "Can't divide by zero.";
+
+  return a / b;
+};
 
 const subtract = (a, b) => a - b;
 
@@ -26,13 +31,17 @@ const operate = (operator, firstNumber, secondNumber) => {
   }
 };
 
+const resetState = () => {
+  operator = '';
+  firstNumber = 0;
+  secondNumber = 0;
+};
+
 // DOM
-let displayValue = '';
-
-const container = document.querySelector('.container');
 const display = document.querySelector('.display');
+const container = document.querySelector('.container');
 
-container.addEventListener('click', function (e) {
+const evaluate = (e) => {
   const target = e.target;
   const type = target.dataset.type;
 
@@ -48,13 +57,22 @@ container.addEventListener('click', function (e) {
   }
 
   if (type === 'operator') {
-    if (firstNumber && operator && secondNumber) {
+    if (
+      (firstNumber || firstNumber === 0) &&
+      operator &&
+      (secondNumber || secondNumber === 0)
+    ) {
       displayValue = String(operate(operator, firstNumber, secondNumber));
       display.textContent = displayValue;
 
-      firstNumber = Number(displayValue);
-      operator = target.dataset.function;
-      displayValue = '';
+      if (isNaN(displayValue)) {
+        resetState();
+        displayValue = '';
+      } else {
+        firstNumber = Number(displayValue);
+        operator = target.dataset.function;
+        displayValue = '';
+      }
     } else if (operator) {
       operator = target.dataset.function;
     } else {
@@ -69,11 +87,22 @@ container.addEventListener('click', function (e) {
       displayValue = String(operate(operator, firstNumber, secondNumber));
       display.textContent = displayValue;
 
-      operator = '';
-      firstNumber = 0;
-      secondNumber = 0;
+      if (isNaN(displayValue)) displayValue = '';
+
+      resetState();
     }
   }
 
-  console.log(firstNumber, secondNumber, operator);
-});
+  if (type === 'clear') {
+    resetState();
+
+    displayValue = '';
+    display.textContent = displayValue;
+  }
+};
+
+const addClick = () => {
+  container.addEventListener('click', evaluate);
+};
+
+addClick();
