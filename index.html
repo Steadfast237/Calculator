@@ -5,34 +5,72 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Calculator</title>
     <link rel="stylesheet" href="./css/styles.css" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Rakkas&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Vollkorn:ital,wght@0,400..900;1,400..900&display=swap"
+      rel="stylesheet"
+    />
+
     <script src="./js/script.js" defer></script>
   </head>
   <body>
-    <div class="container" tabindex="1">
-      <div class="display"></div>
+    <h1>Calculator</h1>
 
-      <button data-type="escape">Clear</button>
-      <button data-type="backspace">Backspace</button>
+    <main>
+      <div class="container">
+        <div class="display"></div>
 
-      <button data-type="operator" data-function="divide">÷</button>
-      <button data-type="number">9</button>
-      <button data-type="number">8</button>
-      <button data-type="number">7</button>
+        <div class="btn-head">
+          <button class="escape" data-type="escape">Clear</button>
+          <button class="backspace" data-type="backspace">Backspace</button>
+        </div>
 
-      <button data-type="operator" data-function="multiply">×</button>
-      <button data-type="number">6</button>
-      <button data-type="number">5</button>
-      <button data-type="number">4</button>
+        <div class="btn-main">
+          <button data-type="number">7</button>
+          <button data-type="number">8</button>
+          <button data-type="number">9</button>
+          <button class="operator" data-type="operator" data-function="divide">
+            ÷
+          </button>
 
-      <button data-type="operator" data-function="subtract">-</button>
-      <button data-type="number">3</button>
-      <button data-type="number">2</button>
-      <button data-type="number">1</button>
+          <button data-type="number">4</button>
+          <button data-type="number">5</button>
+          <button data-type="number">6</button>
+          <button
+            class="operator"
+            data-type="operator"
+            data-function="multiply"
+          >
+            ×
+          </button>
 
-      <button data-type="operator" data-function="add">+</button>
-      <button data-type="enter">=</button>
-      <button>.</button>
-      <button data-type="number">0</button>
-    </div>
+          <button data-type="number">1</button>
+          <button data-type="number">2</button>
+          <button data-type="number">3</button>
+          <button
+            class="operator"
+            data-type="operator"
+            data-function="subtract"
+          >
+            -
+          </button>
+
+          <button data-type="number">0</button>
+          <button>.</button>
+          <button data-type="enter">=</button>
+          <button class="operator" data-type="operator" data-function="add">
+            +
+          </button>
+        </div>
+      </div>
+    </main>
+
+    <footer>Copyright © 2024 Silidje Moket</footer>
   </body>
 </html>
