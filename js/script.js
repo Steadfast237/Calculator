@@ -37,12 +37,11 @@ const resetState = () => {
   secondNumber = 0;
 };
 
-// DOM
 const display = document.querySelector('.display');
 const container = document.querySelector('.container');
 
 const evaluate = (e) => {
-  const target = e.target;
+  const target = e.target.tagName === 'BODY' ? e._target : e.target;
   const type = target.dataset.type;
 
   if (type === 'number') {
@@ -82,7 +81,7 @@ const evaluate = (e) => {
     }
   }
 
-  if (type === 'equals') {
+  if (type === 'enter') {
     if (operator) {
       displayValue = String(operate(operator, firstNumber, secondNumber));
       display.textContent = displayValue;
@@ -93,16 +92,61 @@ const evaluate = (e) => {
     }
   }
 
-  if (type === 'clear') {
+  if (type === 'escape') {
     resetState();
 
     displayValue = '';
     display.textContent = displayValue;
   }
+
+  if (type === 'backspace') {
+    const arr = displayValue.split('');
+    arr.splice(-1, 1);
+    displayValue = arr.join('');
+    display.textContent = displayValue;
+  }
 };
 
-const addClick = () => {
+const keyboardsupport = (e) => {
+  const digits = '0123456789.';
+  const operators = '+*/-';
+  const otherKeys = ['enter', 'backspace', 'escape'];
+  const key = e.key;
+  const code = e.code;
+
+  if (digits.includes(key)) {
+    e._target = {
+      textContent: key,
+      dataset: {
+        type: 'number',
+      },
+    };
+    evaluate(e);
+  }
+
+  if (operators.includes(key)) {
+    e._target = {
+      dataset: {
+        type: 'operator',
+        function: code.toLowerCase().split('numpad')[1],
+      },
+    };
+    evaluate(e);
+  }
+
+  if (otherKeys.includes(key.toLowerCase())) {
+    e._target = {
+      dataset: {
+        type: key.toLowerCase(),
+      },
+    };
+    evaluate(e);
+  }
+};
+
+const Load = () => {
   container.addEventListener('click', evaluate);
+  document.addEventListener('keydown', keyboardsupport);
 };
 
-addClick();
+Load();
